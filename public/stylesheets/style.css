@@ -1,0 +1,137 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 28px;
+}
+
+#card-header {
+  background-color: #343A40;
+  padding: 10px;
+  color: #FFFFFF;
+}
+
+#shop-header {
+  background-color: #343A40;
+  color: #FFFFFF;
+}
+
+#logo-header {
+  width: 50px;
+}
+
+#shop-background {
+  height: 150px;
+  background-image: url('../images/bike-background.jpg');
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 30px;
+}
+
+
+.card {
+
+margin-top: 10px;
+border: none;
+padding: 5px;
+
+}
+
+.card-body:hover {
+  background-color: #ffeaa7;
+  border-radius: 15px;
+  font-weight: bold;
+  transition-duration: 500ms;
+}
+
+.contour-card {
+  border: solid 1px #bdc3c7;
+  border-radius: 20px;
+  padding: 5px;
+
+}
+
+.bas-card {
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+align-items: center;
+}
+
+
+.card-text {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+
+
+.image-panier {
+  width: 300px;
+}
+
+.bouton-panier {
+display: flex;
+justify-content: center;
+text-align: center;
+align-items: center;
+}
+
+.fas {
+  padding: 3px;
+  font-size: 20px;
+  border-radius: 3px;
+}
+
+.refresh {
+  color: green;
+}
+
+
+.trash {
+  color: grey;
+}
+
+.colonne-model {
+
+  width: 30%;
+}
+
+table {width:100%;
+   margin:0 auto;
+}
+
+
+#derniere-ligne {
+  border-bottom: solid 1px darkgrey;
+  color: black;
+  font-weight: bold;
+}
+
+#colonne-picture {
+    width: 20%;
+}
+
+  #colonne-quantity {
+    width: 15%;
+}
+
+#checkout{
+  display: flex;
+  justify-content: flex-end;
+}
+
+nav {
+  margin-top: 15px;
+}
+
+td {
+  align-items: center;
+}
+
+
+#velo-slide:hover {
+	align:left;
+}
