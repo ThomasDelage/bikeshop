@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bike Shop</title>
+    <link rel="icon" href="https://mbtskoudsalg.com/images250_/bicycle-png-icon-4.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+
+
+  </head>
+  <body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/shop">Bikeshop <i class="fas fa-bicycle"></i></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Connexion</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Eshop</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Panier</a>
+          </li>
+        </ul>
+        <span class="navbar-text">
+  Bienvenue sur le shop <%= login %>, (<%= email %>)
+  </span>
+       <div id="suivi_panier"> <i class="fas fa-cart-arrow-down"></i> <span id="compteur_panier"> <%= compteur_panier %> </span>
+      </div>
+    </nav>
+
+
+
+    <div class="container">
+
+       <h1 id="top-panier">Mon panier</h1>
+
+
+<table id = "tableau_basket" class="table">
+  <thead >
+    <tr id="premiere_ligne">
+      <th scope="col" id="colonne-picture">Picture</th>
+      <th scope="col" id="colonne-model" class="d-none d-sm-table-cell colonne-modele">Model</th>
+      <th scope="col" id="colonne-quantity">Quantity</th>
+      <th scope="col" id="colonne-refresh" ></th>
+      <th scope="col" id="colonne-price">Price</th>
+      <th scope="col" id="colonne-total" >Total</th>
+      <th scope="col" id="colonne-suppr">Suppr</th>
+    </tr>
+  </thead>
+
+  <tbody id="table_dynamique">
+
+<% for (i=0; i< velos_panier.length ; i++) { %>
+
+<tr>
+  <th scope="row"><img class="image-panier" src="<%= velos_panier[i].photo %>" alt=""></th>
+  <td class="d-none d-sm-table-cell colonne-modele"> <%= velos_panier[i].nom %> </td>
+  <td>
+
+<form action="/refresh-shop" method = "post">
+    <input name = "quantite" type = "number" value = "<%= velos_panier[i].quantite %>" class= "form-control form-control-sm" >
+    <input name = "id_du_velo_a_refresh" type = "hidden" value = "<%= velos_panier[i].id %>" >
+    <input name = "email" type = "hidden" value = "<%= email %>" >
+    <input name = "login" type = "hidden" value = "<%= login %>" >
+
+
+
+  </td>
+  <td><button type="submit" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button></td>
+</form>
+  <td><%= velos_panier[i].prix %> €</td>
+  <td><%= (velos_panier[i].prix * velos_panier[i].quantite).toLocaleString('en', {useGrouping:true}) %> €</td>
+  <td><form action="/delete-shop" method = "post"><button type="submit" class="btn btn-outline-primary" name = "velo_a_supprimer" value = "<%= velos_panier[i].id %>"><i class="fas fa-trash-alt"></i></button></form></td>
+
+</tr>
+
+<%  }   %>
+
+<tr id="derniere-ligne">
+  <th scope="row"></th>
+  <td class="d-none d-sm-table-cell colonne-modele"></td>
+  <td></td>
+  <td></td>
+  <td>Total:</td>
+  <td> <%= montant_facture.toLocaleString('en', {useGrouping:true}) %> €</td>
+  <td></td>
+
+</tr>
+
+  </tbody>
+</table>
+
+
+
+<div id="checkout">
+  <form action="/checkout" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_tlpIoqn3oZDkw2ksY0pYbk3B"
+    data-amount= "<%= montant_facture*100   %>"
+    data-name="Demo Site"
+    data-description="Example charge"
+    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+    data-locale="auto"
+    data-currency="eur"
+    data-zip-code="true">
+  </script>
+  <input name = "email" type = "hidden" value = "<%= email %>" >
+  <input name = "login" type = "hidden" value = "<%= login %>" >
+</form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+   </div>
+
+
+
+    </div>
+  </body>
+</html>
