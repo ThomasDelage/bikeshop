@@ -16,6 +16,24 @@ var montant_facture = 0;
 var cle_test_stripe = "sk_test_RaXpq8qUaI7mXLeR3DB8J1CQ";
 
 
+// Création de la fonction de calcul de panier ========================================================================
+function calcul_panier (paniervelos) {
+    var facture = 0;
+    console.log("Fonction calcul panier démarrée");
+    console.log("Longueur du vélo: " + paniervelos.length);
+
+        for (i=0; i < paniervelos.length; i++) {
+            if (paniervelos[i].quantite > 0) {
+              facture += (paniervelos[i].quantite * paniervelos[i].prix);
+              console.log("Tour de boucle numéro :" + i);
+
+            }
+        }
+        console.log("Fonction calcul panier terminée");
+      return facture;
+}
+
+
 
 
 //=================================================================================================================================
@@ -95,23 +113,7 @@ req.session.nom_velo = req.body.nom_velo ;
 //MAJ compteur panier et facture
 
       compteur_panier = req.session.dataCardBike.length;
-
-      // MAJ valeur facture totale
-
-      montant_facture = 0;
-          for (i=0; i < req.session.dataCardBike.length; i++) {
-              if (req.session.dataCardBike[i].quantite > 0) {
-                console.log("Boucle numéro : " + i);
-                console.log("Incrément du montant total");
-                montant_facture = montant_facture + (req.session.dataCardBike[i].quantite * req.session.dataCardBike[i].prix);
-                console.log(montant_facture);
-
-              } else {
-                console.log("Boucle numéro : " + i);
-                console.log("Pas d'ajout");
-              }
-
-          }
+      montant_facture = calcul_panier(req.session.dataCardBike);
 
 
       console.log("Montant facture : " + montant_facture);
@@ -146,25 +148,8 @@ router.post('/delete-basket', function(req, res, next) {
 
       //MAJ compteur panier et panier total
 
-            compteur_panier = req.session.dataCardBike.length;
-
-            // MAJ valeur facture totale
-
-            montant_facture = 0;
-                for (i=0; i < req.session.dataCardBike.length; i++) {
-                    if (req.session.dataCardBike[i].quantite > 0) {
-                      console.log("Boucle numéro : " + i);
-                      console.log("Incrément du montant total");
-                      montant_facture = montant_facture + (req.session.dataCardBike[i].quantite * req.session.dataCardBike[i].prix);
-                      console.log(montant_facture);
-
-                    } else {
-                      console.log("Boucle numéro : " + i);
-                      console.log("Pas d'ajout");
-                    }
-
-                }
-
+              compteur_panier = req.session.dataCardBike.length;
+              montant_facture = calcul_panier(req.session.dataCardBike);
 
 
       console.log("Panier apres suppression:" + JSON.stringify(req.session.dataCardBike));
@@ -198,21 +183,8 @@ router.post('/refresh-basket', function(req, res, next) {
 
       // MAJ valeur facture totale
 
-      montant_facture = 0;
-          for (i=0; i < req.session.dataCardBike.length; i++) {
-              if (req.session.dataCardBike[i].quantite > 0) {
-                console.log("Boucle numéro : " + i);
-                console.log("Incrément du montant total");
-                montant_facture = montant_facture + (req.session.dataCardBike[i].quantite * req.session.dataCardBike[i].prix);
-                console.log(montant_facture);
 
-              } else {
-                console.log("Boucle numéro : " + i);
-                console.log("Pas d'ajout");
-              }
-
-          }
-
+        montant_facture = calcul_panier(req.session.dataCardBike);
 
   res.render('basket', {velos_panier:req.session.dataCardBike, login, email, compteur_panier, montant_facture});
 });
