@@ -8,7 +8,7 @@ var dataBike = [
   {"id": "velo3","nom": "Biko3", "photo": "images/bike-3.jpg", "prix":999},
   {"id": "velo4","nom":"Biko4", "photo": "images/bike-4.jpg", "prix":1099},
   {"id": "velo5","nom": "Biko5", "photo": "images/bike-5.jpg", "prix":1899},
-  {"id": "velo6","nom": "Biko6", "photo": "images/bike-6.jpg", "prix":1999}
+  {"id": "velo6","nom": "Biko6666", "photo": "images/bike-6.jpg", "prix":1999}
 ]
 
 // Initialisation du panier
